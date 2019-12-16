@@ -18,7 +18,11 @@ def index(request):
 
         if request.method == 'POST':
             month = request.POST.get('month')
+            if int(month) < 1 or int(month) > 12:
+                return redirect('movies:index')
             day = request.POST.get('day')
+            if int(day) < 0 or int(day) > 31:
+                return redirect('moveis:index')
             last_dates = SearchedDate.objects.filter(user_id=user.id)
 
             # 기존 검색해 본 날짜를 돌면서, 중복된 검색 날짜가 있으면 바로 그 날짜를 검색하게 한다. 
